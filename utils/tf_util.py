@@ -358,6 +358,8 @@ def fully_connected(inputs,
      
     if bn:
       outputs = batch_norm_for_fc(outputs, is_training, bn_decay, 'bn')
+      print("INFO: outputs")
+      print(outputs)
 
     if activation_fn is not None:
       outputs = activation_fn(outputs)
