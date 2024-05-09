@@ -17,8 +17,8 @@ import tf_util
 from pointnet_util import pointnet_sa_module
 
 def placeholder_inputs(batch_size, num_point):
-    pointclouds_pl = tf.ones(tf.float32, shape=(batch_size, num_point, 3), name='hehe')
-    labels_pl = tf.ones(tf.int32, shape=(batch_size), name='lmao')
+    pointclouds_pl = tf.placeholder(tf.float32, shape=(batch_size, num_point, 3), name='hehe')
+    labels_pl = tf.placeholder(tf.int32, shape=(batch_size), name='lmao')
     return pointclouds_pl, labels_pl
 
 def get_model(point_cloud, is_training, bn_decay=None):
