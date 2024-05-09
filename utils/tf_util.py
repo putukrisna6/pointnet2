@@ -535,7 +535,7 @@ def batch_norm_template(inputs, is_training, scope, moments_dims_unused, bn_deca
     fused=True,
     axis=-1 if data_format == "NHWC" else 1,
     dynamic=True,
-    scope=scope
+    name=scope
   )(inputs, training=is_training)
   # return tf.keras.layers.BatchNormalization(
   #   axis=-1 if data_format == "NHWC" else 1,
