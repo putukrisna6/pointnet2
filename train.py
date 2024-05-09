@@ -214,8 +214,6 @@ def train_one_epoch(sess, ops, train_writer):
         summary, step, _, loss_val, pred_val = sess.run([ops['merged'], ops['step'],
             ops['train_op'], ops['loss'], ops['pred']], feed_dict=feed_dict)
         
-        print("INFO: feed: ", feed_dict)
-
         train_writer.add_summary(summary, step)
         pred_val = np.argmax(pred_val, 1)
         correct = np.sum(pred_val[0:bsize] == batch_label[0:bsize])

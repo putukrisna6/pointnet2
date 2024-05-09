@@ -345,7 +345,7 @@ def fully_connected(inputs,
   """
   with tf.compat.v1.variable_scope(scope) as sc:
     num_input_units = inputs.get_shape()[-1].value
-    print("INFO: num_input_units: ", num_input_units)
+    print("INFO: shape: {},{}".format(num_input_units, num_outputs))
     weights = _variable_with_weight_decay('weights',
                                           shape=[num_input_units, num_outputs],
                                           use_xavier=use_xavier,
