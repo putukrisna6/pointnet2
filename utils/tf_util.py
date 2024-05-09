@@ -529,7 +529,7 @@ def batch_norm_template(inputs, is_training, scope, moments_dims_unused, bn_deca
   return tf.compat.v1.layers.BatchNormalization(
     center=True,
     scale=True,
-    is_training=is_training,
+    trainable=True,
     momentum=bn_decay, 
     fused=True,
     axis=-1 if data_format == "NHWC" else 1,
