@@ -356,10 +356,10 @@ def fully_connected(inputs,
                              tf.compat.v1.constant_initializer(0.0))
     outputs = tf.compat.v1.nn.bias_add(outputs, biases)
      
-    if bn:
-      print("INFO: inputs ", outputs)
-      outputs = batch_norm_for_fc(outputs, is_training, bn_decay, 'bn')
-      print("INFO: outputs: ", outputs)
+    # if bn:
+    #   print("INFO: inputs ", outputs)
+    #   outputs = batch_norm_for_fc(outputs, is_training, bn_decay, 'bn')
+    #   print("INFO: outputs: ", outputs)
 
     if activation_fn is not None:
       outputs = activation_fn(outputs)
