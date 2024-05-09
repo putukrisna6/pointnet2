@@ -511,7 +511,7 @@ def batch_norm_template_unused(inputs, is_training, scope, moments_dims, bn_deca
     normed = tf.nn.batch_normalization(inputs, mean, var, beta, gamma, 1e-3)
   return normed
 
-
+@tf.function
 def batch_norm_template(inputs, is_training, scope, moments_dims_unused, bn_decay, data_format='NHWC'):
   """ Batch normalization on convolutional maps and beyond...
   Ref.: http://stackoverflow.com/questions/33949786/how-could-i-use-batch-normalization-in-tensorflow
