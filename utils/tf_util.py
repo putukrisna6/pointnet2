@@ -39,7 +39,7 @@ def _variable_with_weight_decay(name, shape, stddev, wd, use_xavier=True):
     Variable Tensor
   """
   if use_xavier:
-    initializer = tf.contrib.layers.xavier_initializer()
+    initializer = tf.compat.v1.estimator.layers.xavier_initializer()
   else:
     initializer = tf.truncated_normal_initializer(stddev=stddev)
   var = _variable_on_cpu(name, shape, initializer)
@@ -524,7 +524,7 @@ def batch_norm_template(inputs, is_training, scope, moments_dims_unused, bn_deca
       normed:        batch-normalized maps
   """
   bn_decay = bn_decay if bn_decay is not None else 0.9
-  return tf.contrib.layers.batch_norm(inputs, 
+  return tf.compat.v1.estimator.layers.batch_norm(inputs, 
                                       center=True, scale=True,
                                       is_training=is_training, decay=bn_decay,updates_collections=None,
                                       scope=scope,
