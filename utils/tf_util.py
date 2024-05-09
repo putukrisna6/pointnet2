@@ -167,13 +167,13 @@ def conv2d(inputs,
                                            stddev=stddev,
                                            wd=weight_decay)
       stride_h, stride_w = stride
-      outputs = tf.nn.conv2d(inputs, kernel,
+      outputs = tf.compat.v1.nn.conv2d(inputs, kernel,
                              [1, stride_h, stride_w, 1],
                              padding=padding,
                              data_format=data_format)
       biases = _variable_on_cpu('biases', [num_output_channels],
-                                tf.constant_initializer(0.0))
-      outputs = tf.nn.bias_add(outputs, biases, data_format=data_format)
+                                tf.compat.v1.constant_initializer(0.0))
+      outputs = tf.compat.v1.nn.bias_add(outputs, biases, data_format=data_format)
 
       if bn:
         outputs = batch_norm_for_conv2d(outputs, is_training,
