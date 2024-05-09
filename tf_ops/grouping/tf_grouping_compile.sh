@@ -12,7 +12,7 @@
 TF_INC=$(python3 -c 'import tensorflow as tf; print(tf.sysconfig.get_include())')
 TF_LIB=$(python3 -c 'import tensorflow as tf; print(tf.sysconfig.get_lib())')
 
-g++ -std=c++11 tf_grouping.cpp tf_grouping_g.cu.o -o tf_grouping_so.so -shared -fPIC -I /usr/local/lib/python3.8/dist-packages/tensorflow/include/ -I /usr/local/cuda-10.2/include -I /usr/local/lib/python3.8/dist-packages/tensorflow/include/external/nsync/public -lcudart -L /usr/local/cuda-10.2/lib64/ -L$TF_LIB -ltensorflow_framework -O2 -D_GLIBCXX_USE_CXX11_ABI=0 
+g++ -std=c++11 tf_grouping.cpp tf_grouping_g.cu.o -o tf_grouping_so.so -shared -fPIC -I /usr/local/lib/python3.8/dist-packages/tensorflow/include/ -I /usr/local/cuda-10.2/include -I /usr/local/lib/python3.8/dist-packages/tensorflow/include/external/nsync/public -lcudart -L /usr/local/cuda-10.2/lib64/ -L$TF_LIB -ltensorflow_framework -O2 #-D_GLIBCXX_USE_CXX11_ABI=0 
 
 # g++ -std=c++11 tf_grouping.cpp tf_grouping_g.cu.o -o tf_grouping_so.so -shared -fPIC -I$TF_INC -I /usr/local/cuda-10.2/include -I$TF_INC/external/nsync/public -lcudart -L /usr/local/cuda-10.2/lib64/ -L$TF_LIB -ltensorflow_framework -O2 #-D_GLIBCXX_USE_CXX11_ABI=0 
 
