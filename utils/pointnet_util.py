@@ -15,7 +15,10 @@ sys.path.append(os.path.join(ROOT_DIR, 'tf_ops/3d_interpolation'))
 from tf_sampling import farthest_point_sample, gather_point
 from tf_grouping import query_ball_point, group_point, knn_point
 from tf_interpolate import three_nn, three_interpolate
-import tensorflow as tf
+# import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+
 import numpy as np
 import tf_util
 
@@ -104,7 +107,7 @@ def pointnet_sa_module(xyz, points, npoint, radius, nsample, mlp, mlp2, group_al
             idx: (batch_size, npoint, nsample) int32 -- indices for local regions
     '''
     data_format = 'NCHW' if use_nchw else 'NHWC'
-    with tf.compat.v1.variable_scope(scope) as sc:
+    with tf.variable_scope(scope) as sc:
         # Sample and Grouping
         if group_all:
             nsample = xyz.get_shape()[1].value
@@ -128,7 +131,7 @@ def pointnet_sa_module(xyz, points, npoint, radius, nsample, mlp, mlp2, group_al
         elif pooling=='avg':
             new_points = tf.reduce_mean(new_points, axis=[2], keep_dims=True, name='avgpool')
         elif pooling=='weighted_avg':
-            with tf.compat.v1.variable_scope('weighted_avg'):
+            with tf.variable_scope('weighted_avg'):
                 dists = tf.norm(grouped_xyz,axis=-1,ord=2,keep_dims=True)
                 exp_dists = tf.exp(-dists * 5)
                 weights = exp_dists/tf.reduce_sum(exp_dists,axis=2,keep_dims=True) # (batch_size, npoint, nsample, 1)
@@ -169,7 +172,7 @@ def pointnet_sa_module_msg(xyz, points, npoint, radius_list, nsample_list, mlp_l
             new_points: (batch_size, npoint, \sum_k{mlp[k][-1]}) TF tensor
     '''
     data_format = 'NCHW' if use_nchw else 'NHWC'
-    with tf.compat.v1.variable_scope(scope) as sc:
+    with tf.variable_scope(scope) as sc:
         new_xyz = gather_point(xyz, farthest_point_sample(npoint, xyz))
         new_points_list = []
         for i in range(len(radius_list)):
@@ -207,7 +210,7 @@ def pointnet_fp_module(xyz1, xyz2, points1, points2, mlp, is_training, bn_decay,
         Return:
             new_points: (batch_size, ndataset1, mlp[-1]) TF tensor
     '''
-    with tf.compat.v1.variable_scope(scope) as sc:
+    with tf.variable_scope(scope) as sc:
         dist, idx = three_nn(xyz1, xyz2)
         dist = tf.maximum(dist, 1e-10)
         norm = tf.reduce_sum((1.0/dist),axis=2,keep_dims=True)
