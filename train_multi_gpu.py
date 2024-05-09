@@ -179,7 +179,7 @@ def train():
             pred_gpu = []
             total_loss_gpu = []
             for i in range(NUM_GPUS):
-                with tf.variable_scope(tf.get_variable_scope(), reuse=True):
+                with tf.compat.v1.variable_scope(tf.get_variable_scope(), reuse=True):
                     with tf.device('/gpu:%d'%(i)), tf.name_scope('gpu_%d'%(i)) as scope:
                         # Evenly split input data to each GPU
                         pc_batch = tf.slice(pointclouds_pl,
