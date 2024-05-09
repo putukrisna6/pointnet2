@@ -524,11 +524,14 @@ def batch_norm_template(inputs, is_training, scope, moments_dims_unused, bn_deca
       normed:        batch-normalized maps
   """
   bn_decay = bn_decay if bn_decay is not None else 0.9
-  return tf.compat.v1.estimator.layers.batch_norm(inputs, 
-                                      center=True, scale=True,
-                                      is_training=is_training, decay=bn_decay,updates_collections=None,
-                                      scope=scope,
-                                      data_format=data_format)
+  return tf.keras.layers.BatchNormalization(
+    axis=-1 if data_format == "NHWC" else 1,
+    momentum=bn_decay,
+    center=True,
+    scale=True,
+    trainable=is_training,
+    name=scope
+  )(inputs)
 
 
 def batch_norm_for_fc(inputs, is_training, bn_decay, scope):
