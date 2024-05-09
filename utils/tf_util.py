@@ -41,11 +41,11 @@ def _variable_with_weight_decay(name, shape, stddev, wd, use_xavier=True):
   if use_xavier:
     initializer = tf.compat.v1.keras.initializers.glorot_normal
   else:
-    initializer = tf.truncated_normal_initializer(stddev=stddev)
+    initializer = tf.compat.v1.truncated_normal_initializer(stddev=stddev)
   var = _variable_on_cpu(name, shape, initializer)
   if wd is not None:
-    weight_decay = tf.multiply(tf.nn.l2_loss(var), wd, name='weight_loss')
-    tf.add_to_collection('losses', weight_decay)
+    weight_decay = tf.compat.v1.multiply(tf.compat.v1.nn.l2_loss(var), wd, name='weight_loss')
+    tf.compat.v1.add_to_collection('losses', weight_decay)
   return var
 
 
@@ -350,10 +350,10 @@ def fully_connected(inputs,
                                           use_xavier=use_xavier,
                                           stddev=stddev,
                                           wd=weight_decay)
-    outputs = tf.matmul(inputs, weights)
+    outputs = tf.compat.v1.matmul(inputs, weights)
     biases = _variable_on_cpu('biases', [num_outputs],
-                             tf.constant_initializer(0.0))
-    outputs = tf.nn.bias_add(outputs, biases)
+                             tf.compat.v1.constant_initializer(0.0))
+    outputs = tf.compat.v1.nn.bias_add(outputs, biases)
      
     if bn:
       outputs = batch_norm_for_fc(outputs, is_training, bn_decay, 'bn')
