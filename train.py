@@ -208,6 +208,8 @@ def train_one_epoch(sess, ops, train_writer):
         cur_batch_data[0:bsize,...] = batch_data
         cur_batch_label[0:bsize] = batch_label
 
+        print("INFO: feed: ", feed_dict)
+
         feed_dict = {ops['pointclouds_pl']: cur_batch_data,
                      ops['labels_pl']: cur_batch_label,
                      ops['is_training_pl']: is_training,}
