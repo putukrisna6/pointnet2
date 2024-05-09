@@ -212,7 +212,9 @@ def train_one_epoch(sess, ops, train_writer):
                      ops['labels_pl']: cur_batch_label,
                      ops['is_training_pl']: is_training,}
         
-        print("INFO: feed: ", feed_dict)
+        print("INFO: feed ================ ")
+        for key, value in feed_dict.items():
+            print(key, ":", value)
         return
 
         summary, step, _, loss_val, pred_val = sess.run([ops['merged'], ops['step'],
