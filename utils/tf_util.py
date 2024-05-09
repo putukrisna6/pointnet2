@@ -537,7 +537,7 @@ def batch_norm_template(inputs, is_training, scope, moments_dims_unused, bn_deca
     scale=True,
     trainable=is_training,
     name=scope,
-    # dynamic=True
+    dynamic=True
   )(inputs)
 
 
