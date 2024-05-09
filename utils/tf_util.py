@@ -532,7 +532,7 @@ def batch_norm_template(inputs, is_training, scope, moments_dims_unused, bn_deca
     trainable=is_training,
     name=scope,
     dynamic=True
-  )(inputs)
+  )(inputs, training=is_training)
 
 
 def batch_norm_for_fc(inputs, is_training, bn_decay, scope):
